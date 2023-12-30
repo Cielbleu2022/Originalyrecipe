@@ -4,7 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e001cf9-a6cb-4094-85a1-fb6ff6c811c4" name="Changes" comment="" />
+    <list default="true" id="2e001cf9-a6cb-4094-85a1-fb6ff6c811c4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/src/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/originalyrecipe-frontend/src/setupTests.js" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,9 +41,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2Ztu883cGdBy6eNkTe5oaEDC4xW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -29,8 +54,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feat/creation-model",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/macbook/IdeaProjects/Originalyrecipe",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -39,6 +65,21 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Originalyrecipe" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Originalyrecipe" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -55,6 +96,7 @@
       <option name="presentableId" value="Default" />
       <updated>1703253534755</updated>
       <workItem from="1703253537449" duration="358000" />
+      <workItem from="1703333938993" duration="49000" />
     </task>
     <servers />
   </component>
