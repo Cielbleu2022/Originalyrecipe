@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 				title= "Originaly Recipe",
 				version = "1.0.0",
 				description = "It's an application for all the food lover " +
-						"and wanna try to learn  originally recipe. Hope you enjoy it",
+						"and wanna try to learn  originally recipe. Hope you enjoy it miammmm c'est bon",
 
 				termsOfService="to watch and learn recipes",
 				contact = @Contact(
