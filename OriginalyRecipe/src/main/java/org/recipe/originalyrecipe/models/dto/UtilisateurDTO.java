@@ -10,10 +10,9 @@ import java.util.Date;
 public class UtilisateurDTO {
     private Long id;
     private String nom;
-    private String prénom;
+    private String prenom;
     private Date dateDeNaissance;
     private String pays;
     private String mail;
-    private String motDePasse;
 
 }

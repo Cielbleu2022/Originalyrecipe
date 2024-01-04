@@ -1,27 +1,20 @@
-package org.recipe.originalyrecipe.models.form;
+package org.recipe.originalyrecipe.models.updateForm;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Date;
-
 @Data
 @Validated
 @ToString
-public class UtilisateurForm {
+public class UtilisateurUpdateForm {
     @NotBlank
-    private String nom;
-    @NotBlank
-    private String prenom;
-    @NotNull
-    private Date dateDeNaissance;
-    @NotBlank
-    private String pays;
+    private long id;
     @NotBlank
     private String mail;
+    @NotBlank
+    private String pays;
     @NotBlank
     private String motDePasse;
 }

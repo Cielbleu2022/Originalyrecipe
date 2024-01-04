@@ -16,17 +16,24 @@ public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "nom")
     private String nom;
-    @Column(nullable = false)
-    private String prénom;
-    @Column(nullable = false)
-    private Date dateDeNaissance;
-    @Column(nullable = false)
-    private String pays;
-    @Column(nullable = false)
-    private String mail;
-    @Column(nullable = false)
-    private String motDePasse;
 
+    @Column(nullable = false, name = "prenom")
+    private String prenom;
+
+    @Column(nullable = false, name = "date_de_naissance")
+    @Temporal(TemporalType.DATE)
+    private Date dateDeNaissance;
+
+    @Column(nullable = false, name = "pays")
+    private String pays;
+
+    @Column(nullable = false, name = "mail")
+    private String mail;
+
+    @Column(nullable = false, name = "mot_de_passe")
+    private String motDePasse;
 }
+
+
