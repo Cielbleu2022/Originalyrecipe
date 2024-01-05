@@ -4,8 +4,10 @@ import org.recipe.originalyrecipe.models.dto.UtilisateurDTO;
 import org.recipe.originalyrecipe.models.entity.Utilisateur;
 import org.recipe.originalyrecipe.models.form.UtilisateurForm;
 import org.recipe.originalyrecipe.models.updateForm.UtilisateurUpdateForm;
+import org.springframework.stereotype.Service;
 
-public class MapperUtilisateur implements BaseMapper<UtilisateurDTO, Utilisateur, UtilisateurForm, UtilisateurUpdateForm> {
+@Service
+public class UtilisateurMapper implements BaseMapper<UtilisateurDTO, Utilisateur, UtilisateurForm, UtilisateurUpdateForm> {
 
     @Override
     public UtilisateurDTO entityToDTO(Utilisateur utilisateur) {
