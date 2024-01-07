@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-
+/**
+ * Entité représentant un utilisateur dans le système.
+ */
 @Table(name="utilisateur")
 @Entity
 @AllArgsConstructor

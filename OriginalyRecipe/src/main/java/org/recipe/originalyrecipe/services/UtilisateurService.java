@@ -9,6 +9,7 @@ import org.recipe.originalyrecipe.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 @Service
 public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Utilisateur, UtilisateurForm, UtilisateurUpdateForm>{
@@ -32,12 +33,16 @@ public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Util
 
     @Override
     public UtilisateurDTO findOne(Long aLong) {
-        return null;
+
+        return utilisateurRepository.findById(aLong)
+                .map(utilisateurMapper::entityToDTO)
+                .orElseThrow(()-> new NoSuchElementException("Utilisateur non trouvé avec l'identifiant, essayer un autre identifint : " + aLong));
     }
 
     @Override
     public UtilisateurDTO add(UtilisateurForm toAdd) {
-        return null;
+        Utilisateur utilisateur = utilisateurMapper.formToEntity(toAdd);
+        return utilisateurMapper.entityToDTO(utilisateurRepository.save(utilisateur));
     }
 
     @Override
