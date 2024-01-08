@@ -52,10 +52,10 @@ public class UtilisateurController {
 
     @GetMapping(path = {"/searchUtilisateur"},params = {"idUtilisateur"})
     @Operation(summary = "Recherche d'un utilisateur par ID")
-    @Parameter(description = "ID de l'utilisateur à rechercher", required = true)
+    //@Parameter(description = "ID de l'utilisateur à rechercher", required = true)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Utilisateur trouvé", content = @Content(schema = @Schema(implementation = UtilisateurDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+           @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
     })
     public ResponseEntity<UtilisateurDTO> findOne(@RequestParam Long idUtilisateur){
         return ResponseEntity
