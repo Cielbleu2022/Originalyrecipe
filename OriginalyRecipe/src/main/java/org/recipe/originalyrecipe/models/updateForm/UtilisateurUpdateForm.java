@@ -15,6 +15,4 @@ public class UtilisateurUpdateForm {
     private String mail;
     @NotBlank
     private String pays;
-    @NotBlank
-    private String motDePasse;
 }

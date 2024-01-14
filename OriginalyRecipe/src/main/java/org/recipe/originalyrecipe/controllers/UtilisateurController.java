@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.recipe.originalyrecipe.models.dto.UtilisateurDTO;
 import org.recipe.originalyrecipe.models.form.UtilisateurForm;
+import org.recipe.originalyrecipe.models.updateForm.UtilisateurUpdateForm;
 import org.recipe.originalyrecipe.services.UtilisateurService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("utilisateur")
 @Tag(name = "Utilisateur Controller", description = "Endpoints pour gérer les utilisateurs")
@@ -81,4 +83,18 @@ public class UtilisateurController {
         }
         return utilisateurService.add(utilisateurForm);
     }
+    @PatchMapping (path = {"", "/", "/update"},params = {"idUtilisateur"})
+    public UtilisateurDTO update(@RequestParam Long idUtilisateur, @Valid @RequestBody UtilisateurUpdateForm utilisateurUpdateForm, @RequestHeader HttpHeaders headers){
+        for (String key : headers.keySet()) {
+            System.out.println( headers.get(key) );
+        }
+        return utilisateurService.update(idUtilisateur, utilisateurUpdateForm);
+    }
+
+    @DeleteMapping(path = {"", "/", "/delete"},params = {"idUtilisateur"})
+    public ResponseEntity<UtilisateurDTO> delete(@RequestParam Long idUtilisateur){
+        return ResponseEntity
+                .ok(utilisateurService.remove(idUtilisateur));
+    }
+
 }

@@ -47,11 +47,16 @@ public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Util
 
     @Override
     public UtilisateurDTO update(Long aLong, UtilisateurUpdateForm utilisateurUpdateForm) {
-        return null;
+        Utilisateur utilisateur= utilisateurRepository.findById(aLong).orElseThrow();
+        utilisateur.setMail(utilisateurUpdateForm.getMail());
+        utilisateur.setPays(utilisateurUpdateForm.getPays());
+        return utilisateurMapper.entityToDTO(utilisateurRepository.save(utilisateur));
     }
 
     @Override
     public UtilisateurDTO remove(Long aLong) {
-        return null;
+        Utilisateur utilisateur= utilisateurRepository.findById(aLong).orElseThrow();
+        utilisateurRepository.delete(utilisateur);
+        return utilisateurMapper.entityToDTO(utilisateur);
     }
 }

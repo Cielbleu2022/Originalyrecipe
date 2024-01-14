@@ -69,10 +69,6 @@ public class UtilisateurMapper implements BaseMapper<UtilisateurDTO, Utilisateur
             utilisateur.setPays(utilisateurUpdateForm.getPays());
         }
 
-        if (utilisateurUpdateForm.getMotDePasse() != null && !utilisateurUpdateForm.getMotDePasse().isEmpty()) {
-            utilisateur.setMotDePasse(utilisateurUpdateForm.getMotDePasse());
-        };
-
         return utilisateur;
     }
 }
