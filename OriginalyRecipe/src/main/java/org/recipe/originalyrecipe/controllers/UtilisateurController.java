@@ -97,4 +97,15 @@ public class UtilisateurController {
                 .ok(utilisateurService.remove(idUtilisateur));
     }
 
+    @GetMapping(path = {"/searchByName"}, params = {"nom"})
+    @Operation(summary = "Recherche d'un utilisateur par nom")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur trouvé", content = @Content(schema = @Schema(implementation = UtilisateurDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+    })
+    public ResponseEntity<List<UtilisateurDTO>> searchByName(@RequestParam String nom) {
+        return ResponseEntity.ok(utilisateurService.searchByName(nom));
+    }
+
+
 }

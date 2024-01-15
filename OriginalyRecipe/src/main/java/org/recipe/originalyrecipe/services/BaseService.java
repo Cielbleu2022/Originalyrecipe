@@ -8,5 +8,6 @@ public interface BaseService <DTO,ID,Entity,Form,UpdateForm>{
     DTO add(Form toAdd);
     DTO update(ID id,UpdateForm updateForm);
     DTO remove(ID id);
+    List<DTO> searchByName(String nom);
 
 }

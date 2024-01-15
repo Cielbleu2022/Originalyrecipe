@@ -59,4 +59,11 @@ public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Util
         utilisateurRepository.delete(utilisateur);
         return utilisateurMapper.entityToDTO(utilisateur);
     }
+    @Override
+    public List<UtilisateurDTO> searchByName(String nom) {
+        return utilisateurRepository.findByNomContainingIgnoreCase(nom)
+                .stream()
+                .map(utilisateurMapper::entityToDTO)
+                .collect(Collectors.toList());
+    }
 }
