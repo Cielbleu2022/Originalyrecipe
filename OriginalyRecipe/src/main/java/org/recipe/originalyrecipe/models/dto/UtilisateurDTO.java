@@ -14,5 +14,6 @@ public class UtilisateurDTO {
     private Date dateDeNaissance;
     private String pays;
     private String mail;
+    private String role;
 
 }

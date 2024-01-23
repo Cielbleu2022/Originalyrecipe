@@ -3,6 +3,7 @@ package org.recipe.originalyrecipe.models.form;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
@@ -24,4 +25,7 @@ public class UtilisateurForm {
     private String mail;
     @NotBlank
     private String motDePasse;
+    @Getter
+    private String roleName;
+
 }

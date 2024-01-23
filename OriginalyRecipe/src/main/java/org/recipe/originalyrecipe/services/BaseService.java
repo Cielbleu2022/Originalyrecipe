@@ -10,4 +10,6 @@ public interface BaseService <DTO,ID,Entity,Form,UpdateForm>{
     DTO remove(ID id);
     List<DTO> searchByName(String nom);
 
+
+
 }

@@ -36,6 +36,13 @@ public class Utilisateur {
 
     @Column(nullable = false, name = "mot_de_passe")
     private String motDePasse;
+
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+
 }
 
 
