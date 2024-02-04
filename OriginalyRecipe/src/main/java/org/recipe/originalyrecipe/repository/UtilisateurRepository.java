@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
     List<Utilisateur> findByNomContainingIgnoreCase(String nom);
+    Utilisateur findByMail(String mail);
 }

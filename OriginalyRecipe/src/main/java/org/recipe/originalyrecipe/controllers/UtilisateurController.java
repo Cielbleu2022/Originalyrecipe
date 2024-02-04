@@ -1,7 +1,6 @@
 package org.recipe.originalyrecipe.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,10 +12,16 @@ import org.recipe.originalyrecipe.models.form.UtilisateurForm;
 import org.recipe.originalyrecipe.models.updateForm.UtilisateurUpdateForm;
 import org.recipe.originalyrecipe.services.UtilisateurService;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import static org.recipe.originalyrecipe.services.UtilisateurService.logger;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -105,6 +110,54 @@ public class UtilisateurController {
     })
     public ResponseEntity<List<UtilisateurDTO>> searchByName(@RequestParam String nom) {
         return ResponseEntity.ok(utilisateurService.searchByName(nom));
+    }
+
+    /**
+     * Recherche un utilisateur par son adresse e-mail.
+     *
+     * @return Une ResponseEntity contenant un utilisateur.
+     */
+    @GetMapping(path = {"/searchByMail"}, params = {"mail"})
+    @Operation(summary = "Recherche d'un utilisateur par e-mail")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur trouvé", content = @Content(schema = @Schema(implementation = UtilisateurDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+    })
+    public ResponseEntity<UtilisateurDTO> findByMail(@RequestParam String mail) {
+        return ResponseEntity.ok(utilisateurService.findByMail(mail));
+    }
+    @PostMapping(path = {"/login"})
+    public ResponseEntity<UtilisateurDTO> login(@RequestBody Map<String, String> credentials) {
+        String email = credentials.get("email");
+        String password = credentials.get("password");
+
+        // Ajouter des logs ici pour les informations d'identification
+        logger.info("Login request received for email: {}", email);
+
+        try {
+            UtilisateurDTO utilisateurDTO = utilisateurService.login(email, password);
+            // Ajouter des logs ici pour une connexion réussie
+            logger.info("Login successful for email: {}", email);
+            return ResponseEntity.ok(utilisateurDTO);
+        } catch (AuthenticationException e) {
+            // Ajouter des logs ici pour un échec de connexion
+            logger.warn("Login failed for email: {}", email);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        // Appeler la méthode de déconnexion dans le service
+        utilisateurService.logout();
+
+        return ResponseEntity.ok("Déconnexion réussie");
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
 

@@ -8,33 +8,42 @@ import org.recipe.originalyrecipe.models.form.UtilisateurForm;
 import org.recipe.originalyrecipe.models.updateForm.UtilisateurUpdateForm;
 import org.recipe.originalyrecipe.repository.RoleRepository;
 import org.recipe.originalyrecipe.repository.UtilisateurRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
 @Service
-public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Utilisateur, UtilisateurForm, UtilisateurUpdateForm>{
+public class UtilisateurService implements BaseService<UtilisateurDTO, Long, Utilisateur, UtilisateurForm, UtilisateurUpdateForm> {
+
     private final UtilisateurRepository utilisateurRepository;
     private final UtilisateurMapper utilisateurMapper;
-
     private final RoleRepository roleRepository;
-
     private final RoleService roleService;
-
-
-    public UtilisateurService(UtilisateurRepository utilisateurRepository, UtilisateurMapper utilisateurMapper, RoleRepository roleRepository, RoleService roleService) {
+    private final PasswordEncoder passwordEncoder;
+    public static final Logger logger = LoggerFactory.getLogger(UtilisateurService.class);
+    // Ajoutez PasswordEncoder dans le constructeur
+    public UtilisateurService(
+            UtilisateurRepository utilisateurRepository,
+            UtilisateurMapper utilisateurMapper,
+            RoleRepository roleRepository,
+            RoleService roleService,
+            PasswordEncoder passwordEncoder) {
         this.utilisateurRepository = utilisateurRepository;
         this.utilisateurMapper = utilisateurMapper;
         this.roleRepository = roleRepository;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;  // Initialisez PasswordEncoder
     }
-
 
     @Override
     public List<UtilisateurDTO> getAll() {
-
         return utilisateurRepository.findAll()
                 .stream()
                 .map(utilisateurMapper::entityToDTO)
@@ -43,10 +52,9 @@ public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Util
 
     @Override
     public UtilisateurDTO findOne(Long aLong) {
-
         return utilisateurRepository.findById(aLong)
                 .map(utilisateurMapper::entityToDTO)
-                .orElseThrow(()-> new NoSuchElementException("Utilisateur non trouvé avec l'identifiant, essayer un autre identifint : " + aLong));
+                .orElseThrow(() -> new NoSuchElementException("Utilisateur non trouvé avec l'identifiant, essayer un autre identifiant : " + aLong));
     }
 
     @Override
@@ -64,7 +72,18 @@ public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Util
         }
 
         utilisateur.setRole(role);
-        return utilisateurMapper.entityToDTO(utilisateurRepository.save(utilisateur));
+
+        // Encoder le mot de passe avec BCrypt avant de le stocker
+        String motDePasseEncode = passwordEncoder.encode(toAdd.getMotDePasse());
+        utilisateur.setMotDePasse(motDePasseEncode);
+
+        // Enregistrez le nouvel utilisateur
+        Utilisateur savedUtilisateur = utilisateurRepository.save(utilisateur);
+
+        // Recherchez l'utilisateur par e-mail après l'enregistrement
+        UtilisateurDTO utilisateurDTO = findByMail(savedUtilisateur.getMail());
+
+        return utilisateurDTO;
     }
 
     private boolean isValidRole(String name) {
@@ -86,13 +105,9 @@ public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Util
         return false;
     }
 
-
-
-
-
     @Override
     public UtilisateurDTO update(Long aLong, UtilisateurUpdateForm utilisateurUpdateForm) {
-        Utilisateur utilisateur= utilisateurRepository.findById(aLong).orElseThrow();
+        Utilisateur utilisateur = utilisateurRepository.findById(aLong).orElseThrow();
         utilisateur.setMail(utilisateurUpdateForm.getMail());
         utilisateur.setPays(utilisateurUpdateForm.getPays());
 
@@ -107,10 +122,11 @@ public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Util
 
     @Override
     public UtilisateurDTO remove(Long aLong) {
-        Utilisateur utilisateur= utilisateurRepository.findById(aLong).orElseThrow();
+        Utilisateur utilisateur = utilisateurRepository.findById(aLong).orElseThrow();
         utilisateurRepository.delete(utilisateur);
         return utilisateurMapper.entityToDTO(utilisateur);
     }
+
     @Override
     public List<UtilisateurDTO> searchByName(String nom) {
         return utilisateurRepository.findByNomContainingIgnoreCase(nom)
@@ -118,5 +134,35 @@ public class UtilisateurService implements BaseService<UtilisateurDTO,Long, Util
                 .map(utilisateurMapper::entityToDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public UtilisateurDTO findByMail(String mail) {
+        Utilisateur utilisateur = utilisateurRepository.findByMail(mail);
+        if (utilisateur == null) {
+            throw new NoSuchElementException("Utilisateur non trouvé avec l'adresse e-mail: " + mail);
+        }
+        return utilisateurMapper.entityToDTO(utilisateur);
+    }
+
+    @Override
+    public UtilisateurDTO login(String email, String password) throws AuthenticationException {
+        Utilisateur utilisateur = utilisateurRepository.findByMail(email);
+        if (utilisateur == null || !passwordEncoder.matches(password, utilisateur.getMotDePasse())) {
+            // Ajouter des logs ici
+            logger.warn("Login failed for email: {}", email);
+            throw new AuthenticationException("Échec de la connexion. Vérifiez vos identifiants.");
+        }
+        logger.info("Login successful for email: {}", email);
+        return utilisateurMapper.entityToDTO(utilisateur);
+    }
+    @Override
+    public void logout() {
+        // Ajoutez ici la logique de déconnexion
+        // Par exemple, invalidez la session, effectuez d'autres opérations nécessaires, etc.
+
+        // Effacer le contexte de sécurité pour déconnecter l'utilisateur
+        SecurityContextHolder.clearContext();
+    }
+
 
 }
